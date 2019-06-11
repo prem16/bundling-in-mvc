@@ -1,0 +1,42 @@
+using Sitecore;
+using Sitecore.Pipelines;
+using System;
+using System.Web.Optimization;
+
+namespace Manappuram.SC.Common.MVC.Pipelines
+{
+    public class RegisterBundles
+    {
+        private string time = DateTime.Now.ToString("O");
+        [UsedImplicitly]
+        public virtual void Process(PipelineArgs args)
+        {
+            //#if DEBUG
+            BundleTable.EnableOptimizations = true;
+            //#else
+            //          BundleTable.EnableOptimizations = true; 
+            //#endif
+            Register(BundleTable.Bundles);
+        }
+
+        private void Register(BundleCollection bundles)
+        {
+            bundles.Add(new StyleBundle("~/bundles/commonstyles").Include(
+                "~/Content/assets/css/all.min.css",
+                 "~/Content/assets/css/bootstrap.min.css" ,
+                 "~/Content/assets/css/style.css",
+                 "~/Content/assets/css/additionalstyle.css",
+                 "~/Content/assets/css/responsive.css"
+
+           ));
+
+            bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
+                 "~/Scripts/jquery-2.2.4.min.js",
+                 "~/Scripts/bootstrap.min.js"
+            ));
+            bundles.Add(new ScriptBundle("~/bundles/commonscripts").Include(
+               "~/Scripts/script.js"
+          ));
+        }
+    }
+}
